@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Gumeniukcom\Aggregator;
 
-
-use Gumeniukcom\SM\Entity\PostInterface;
 use Gumeniukcom\SM\Entity\PostsInterface;
 
 class LongestPostByCharacterPerMonth extends AggregatorAbstract implements AggregatorInterface
@@ -18,7 +16,7 @@ class LongestPostByCharacterPerMonth extends AggregatorAbstract implements Aggre
      */
     public function aggregate(PostsInterface $posts): self
     {
-        /** @var PostInterface $post */
+
         foreach ($posts->getPosts() as $post) {
             $key = $post->getCreatedYearMonth(); // year-month key
             if (!array_key_exists($key, $this->characters)) {

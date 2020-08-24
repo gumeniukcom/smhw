@@ -1,0 +1,4 @@
+actor: AggregatorTester
+modules:
+    enabled:
+        - \Helper\Aggregator

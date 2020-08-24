@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Gumeniukcom\Aggregator;
 
-
-use Gumeniukcom\SM\Entity\PostInterface;
 use Gumeniukcom\SM\Entity\PostsInterface;
 
 class AveragePostsPerUserPerMonth extends AggregatorAbstract implements AggregatorInterface
@@ -19,7 +17,6 @@ class AveragePostsPerUserPerMonth extends AggregatorAbstract implements Aggregat
     {
         $postPerUserPerMonth = [];
 
-        /** @var PostInterface $post */
         foreach ($posts->getPosts() as $post) {
             $keyYearMonth = $post->getCreatedYearMonth(); // year-month key
             $keyUserId = $post->getFromId();

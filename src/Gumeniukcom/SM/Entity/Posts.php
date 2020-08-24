@@ -13,7 +13,7 @@ class Posts implements PostsInterface
 
     /**
      * Posts constructor.
-     * @param array $posts
+     * @param PostInterface[] $posts
      */
     public function __construct(array $posts = [])
     {

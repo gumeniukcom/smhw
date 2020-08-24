@@ -1,0 +1,4 @@
+actor: TransformerTester
+modules:
+    enabled:
+        - \Helper\Transformer

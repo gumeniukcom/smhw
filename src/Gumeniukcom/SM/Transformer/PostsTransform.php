@@ -28,6 +28,7 @@ class PostsTransform extends TransformerAbstract implements PostsTransformInterf
     public function transformFromSMResponse(array $array): ?PostsInterface
     {
         if (!array_key_exists('posts', $array)) {
+            $this->logger->error("empty posts im sm response");
             return null;
         }
         $posts = new Posts();

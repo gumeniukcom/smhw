@@ -3,7 +3,7 @@
   "type": "project",
   "description": "",
   "keywords": [],
-  "homepage": "https://gumeniuk.com/en/dev",
+  "homepage": "https://gumeniuk.com/en/",
   "license": "MIT",
   "authors": [
     {
@@ -14,10 +14,10 @@
   "require": {
     "php": "^7.4.0",
     "ext-curl": "*",
-    "guzzlehttp/guzzle": "^7.0",
-    "monolog/monolog": "^2.1",
     "ext-json": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "guzzlehttp/guzzle": "^7.0",
+    "monolog/monolog": "^2.1"
   },
   "autoload": {
     "psr-0": {
@@ -25,6 +25,14 @@
     }
   },
   "require-dev": {
-    "overtrue/phplint": "^2.0"
+    "overtrue/phplint": "^2.0",
+    "codeception/codeception": "^4.1",
+    "codeception/module-phpbrowser": "^1.0.0",
+    "codeception/module-asserts": "^1.0.0"
+  },
+  "scripts": {
+    "tests": "php vendor/bin/codecept run --steps",
+    "lint": "./vendor/bin/phplint",
+    "noverify": "~/go/bin/noverify -cache-dir=$HOME/tmp/cache/noverify -exclude='vendor/|tests/|tmp/|var/' ./"
   }
 }

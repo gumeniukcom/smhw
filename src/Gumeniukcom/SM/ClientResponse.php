@@ -6,14 +6,20 @@ namespace Gumeniukcom\SM;
 
 class ClientResponse
 {
+    /**
+     * @var mixed
+     */
     private $meta;
 
+    /**
+     * @var mixed
+     */
     private $data;
 
     /**
      * ClientResponse constructor.
-     * @param $meta
-     * @param $data
+     * @param mixed $meta
+     * @param mixed $data
      */
     public function __construct($meta, $data)
     {
