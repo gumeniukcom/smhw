@@ -11,6 +11,26 @@ use Psr\Log\LoggerInterface;
 
 class Logger implements LoggerInterface
 {
+
+    public const LEVEL_DEBUG = MLogger::DEBUG;
+
+    public const LEVEL_INFO = MLogger::INFO;
+
+    public const LEVEL_NOTICE = MLogger::NOTICE;
+
+    public const LEVEL_WARNING = MLogger::WARNING;
+
+    public const LEVEL_ERROR = MLogger::ERROR;
+
+    public const LEVEL_CRITICAL = MLogger::CRITICAL;
+
+    public const LEVEL_ALERT = MLogger::ALERT;
+
+    /**
+     * Urgent alert.
+     */
+    public const EMERGENCY = 600;
+
     private MLogger $logger;
 
     /**
@@ -18,7 +38,7 @@ class Logger implements LoggerInterface
      */
     private bool $clearContextRule = true;
 
-    public function __construct(string $name)
+    public function __construct(string $name, int $logLevel = self::LEVEL_DEBUG)
     {
         $this->logger = new MLogger($name);
 
@@ -26,7 +46,7 @@ class Logger implements LoggerInterface
 
         $stream = new StreamHandler(
             'php://stdout',
-            MLogger::DEBUG,
+            $logLevel,
         );
         $stream->setFormatter($formatter);
 
@@ -125,7 +145,6 @@ class Logger implements LoggerInterface
     }
 
     /**
-     * TODO : implement clearing context, eg: token value to ***
      * @param array $context
      * @return array
      */
@@ -133,7 +152,13 @@ class Logger implements LoggerInterface
     {
         if ($this->clearContextRule) {
             array_walk_recursive($context, function (&$item, $key) {
-                if (str_contains($key, 'token') || str_contains($key, 'email')) {
+                if (is_string($item) &&
+                    (
+                        str_contains($key, 'token')
+                        || str_contains($key, 'email')
+                        || str_contains($key, 'name')
+                    )
+                ) {
                     $item = mb_substr($item, 0, 2) . '***';
                 }
             });

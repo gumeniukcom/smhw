@@ -7,6 +7,8 @@ use Gumeniukcom\SM\Entity\PostsInterface;
 
 class AveragePostsPerUserPerMonth extends AggregatorAbstract implements AggregatorInterface
 {
+    protected string $name = 'average_posts_per_user_per_month';
+
     private array $result = [];
 
     /**

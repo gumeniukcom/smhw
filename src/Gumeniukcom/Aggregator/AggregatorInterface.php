@@ -19,4 +19,9 @@ interface AggregatorInterface
      */
     public function getResult(): array;
 
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
 }

@@ -32,8 +32,22 @@ class NetClient extends NetClientAbstract implements NetClientInterface
 
         $url = $this->makeUrl($methodName);
 
+        if (!empty($headers)) {
+
+            if (isset($headers['query'])) {
+                $formParams = $headers['query'];
+                unset($headers['query']);
+            }
+
+            curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        }
+
         if ($method == self::HTTP_GET) {
-            $queryString = http_build_query($formParams);
+            $queryString = '';
+            if (!is_null($formParams)) {
+                $queryString = http_build_query($formParams);
+            }
+
             $requestUrl = $url . '?' . $queryString;
 
             curl_setopt($request, CURLOPT_URL, $requestUrl);
@@ -43,15 +57,13 @@ class NetClient extends NetClientAbstract implements NetClientInterface
             curl_setopt($request, CURLOPT_POSTFIELDS, $formParams);
         }
 
-        if (!empty($headers)) {
-            curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
-        }
+
 
         curl_setopt($request, CURLOPT_TIMEOUT, $this->requestTimeout);
         curl_setopt($request, CURLOPT_CONNECTTIMEOUT, $this->requestTimeout);
         curl_setopt($request, CURLOPT_FAILONERROR, false);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request, CURLOPT_VERBOSE, true);
+//        curl_setopt($request, CURLOPT_VERBOSE, true);
 
         $response = curl_exec($request);
         $statusCode = curl_getinfo($request, CURLINFO_HTTP_CODE);

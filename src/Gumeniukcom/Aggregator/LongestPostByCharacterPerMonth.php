@@ -7,6 +7,7 @@ use Gumeniukcom\SM\Entity\PostsInterface;
 
 class LongestPostByCharacterPerMonth extends AggregatorAbstract implements AggregatorInterface
 {
+    protected string $name =  'longest_post_by_character_per_month';
 
     private array $characters = [];
 

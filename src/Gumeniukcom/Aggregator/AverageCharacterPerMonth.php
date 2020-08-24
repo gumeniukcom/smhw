@@ -8,6 +8,8 @@ use Gumeniukcom\SM\Entity\PostsInterface;
 
 class AverageCharacterPerMonth extends AggregatorAbstract implements AggregatorInterface
 {
+    protected string $name =  'average_character_per_month';
+
     private array $results = [];
 
     /**

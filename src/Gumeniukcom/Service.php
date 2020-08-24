@@ -46,7 +46,11 @@ class Service
         if (is_null($token)) {
             return null;
         }
-
+        $this->logger->info("register token", [
+            'client_id' => $client_id,
+            'email' => $email,
+            'name' => $name,
+        ]);
         return $token;
     }
 
@@ -79,9 +83,10 @@ class Service
      * @param PostsInterface $posts
      * @param AggregatorInterface $aggregator
      */
-    public function runAggregate(PostsInterface $posts, AggregatorInterface $aggregator) {
+    public function runAggregate(PostsInterface $posts, AggregatorInterface $aggregator)
+    {
         $result = $aggregator->aggregate($posts);
-        var_dump($result->getResult());
+        $this->logger->info($result->getName(), $result->getResult());
     }
 
 

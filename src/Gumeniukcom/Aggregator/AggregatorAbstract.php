@@ -8,6 +8,12 @@ use Psr\Log\LoggerInterface;
 
 abstract class AggregatorAbstract
 {
+
+    /**
+     * @var string
+     */
+    protected string $name = "abstract_aggregator";
+
     /**
      * @var LoggerInterface
      */
@@ -20,5 +26,10 @@ abstract class AggregatorAbstract
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

@@ -7,6 +7,7 @@ use Gumeniukcom\SM\Entity\PostsInterface;
 
 class TotalPostsSplitByWeekNumber extends AggregatorAbstract implements AggregatorInterface
 {
+    protected string $name =  'total_posts_split_by_week_number';
 
     private array $totalPosts = [];
 
