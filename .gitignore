@@ -1,0 +1,7 @@
+phpunit.xml
+composer.lock
+/vendor/
+.idea/
+*.iml
+.phplint-cache
+build/

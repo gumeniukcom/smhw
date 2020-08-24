@@ -1,0 +1,30 @@
+{
+  "name": "gumeniukcom/smhw",
+  "type": "project",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://gumeniuk.com/en/dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stanislav Gumeniuk",
+      "email": "i@gumeniuk.com"
+    }
+  ],
+  "require": {
+    "php": "^7.4.0",
+    "ext-curl": "*",
+    "guzzlehttp/guzzle": "^7.0",
+    "monolog/monolog": "^2.1",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Gumeniukcom": "src/"
+    }
+  },
+  "require-dev": {
+    "overtrue/phplint": "^2.0"
+  }
+}
