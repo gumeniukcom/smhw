@@ -1,0 +1,4 @@
+vendor/
+tests/
+.phplint.yml
+codeception.yml
