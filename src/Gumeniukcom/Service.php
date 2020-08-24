@@ -46,10 +46,11 @@ class Service
         if (is_null($token)) {
             return null;
         }
-        $this->logger->info("register token", [
+        $this->logger->info("finish register token", [
             'client_id' => $client_id,
             'email' => $email,
             'name' => $name,
+            'token' => $token,
         ]);
         return $token;
     }
@@ -60,6 +61,7 @@ class Service
      */
     public function fetchAllPosts(TokenInterface $token): PostsInterface
     {
+        $this->logger->debug('start fetch all posts');
         $posts = new Posts();
         if (!$token->isAlive()) {
             $this->logger->error('token expired');
@@ -70,12 +72,13 @@ class Service
         for ($page = 1; $page <= 10; $page++) {
             $postsChunk = $this->client->getPosts($token, $page);
             if (is_null($postsChunk)) {
-                $this->logger->error('');
+                $this->logger->error('some error of get posts chuck');
                 return $posts;
             }
             $posts->addPosts($postsChunk);
         }
 
+        $this->logger->info('finish fetch all posts');
         return $posts;
     }
 
@@ -83,11 +86,29 @@ class Service
      * @param PostsInterface $posts
      * @param AggregatorInterface $aggregator
      */
-    public function runAggregate(PostsInterface $posts, AggregatorInterface $aggregator)
+    public function runAggregate(PostsInterface $posts, AggregatorInterface $aggregator): void
     {
-        $result = $aggregator->aggregate($posts);
-        $this->logger->info($result->getName(), $result->getResult());
+        $this->logger->debug('start aggregate: ' . $aggregator->getName());
+        $aggregator->aggregate($posts);
+        $this->logger->info('finish aggregate: ' . $aggregator->getName(), $aggregator->getResult());
     }
 
+
+    /**
+     * @param string $client_id
+     * @param string $email
+     * @param string $name
+     */
+    public function run(string $client_id, string $email, string $name): void
+    {
+        $token = $this->registerToken($client_id, $email, $name);
+
+        $posts = $this->fetchAllPosts($token);
+
+        $this->runAggregate($posts, new Aggregator\AverageCharacterPerMonth($this->logger));
+        $this->runAggregate($posts, new Aggregator\LongestPostByCharacterPerMonth($this->logger));
+        $this->runAggregate($posts, new Aggregator\TotalPostsSplitByWeekNumber($this->logger));
+        $this->runAggregate($posts, new Aggregator\AveragePostsPerUserPerMonth($this->logger));
+    }
 
 }

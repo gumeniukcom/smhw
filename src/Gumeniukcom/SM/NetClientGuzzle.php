@@ -57,13 +57,13 @@ class NetClientGuzzle extends NetClientAbstract implements NetClientInterface
     {
         if (!$this->isMethodAvailable($method)) {
             $this->logger->error(
-                'request called wrong with http method',
+                'request called with wrong http method',
                 [
                     'method' => $method,
                     'method_name' => $methodName,
                 ]
             );
-            throw new \Exception('request called wrong with http method');
+            throw new \Exception('request called with wrong http method');
         }
 
         if (!is_null($formParams)) {

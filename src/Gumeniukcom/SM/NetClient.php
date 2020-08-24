@@ -19,13 +19,13 @@ class NetClient extends NetClientAbstract implements NetClientInterface
     {
         if (!$this->isMethodAvailable($method)) {
             $this->logger->error(
-                'request called wrong with http method',
+                'request called with wrong http method',
                 [
                     'method' => $method,
                     'method_name' => $methodName,
                 ]
             );
-            throw new \Exception('request called wrong with http method');
+            throw new \Exception('request called with wrong http method');
         }
 
         $request = curl_init();
@@ -63,7 +63,6 @@ class NetClient extends NetClientAbstract implements NetClientInterface
         curl_setopt($request, CURLOPT_CONNECTTIMEOUT, $this->requestTimeout);
         curl_setopt($request, CURLOPT_FAILONERROR, false);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($request, CURLOPT_VERBOSE, true);
 
         $response = curl_exec($request);
         $statusCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
