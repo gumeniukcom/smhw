@@ -13,6 +13,7 @@ use Psr\Log\LoggerInterface;
 
 class Service
 {
+    const POST_PAGE_LIMIT = 10;
     /**
      * @var LoggerInterface
      */
@@ -69,7 +70,7 @@ class Service
         }
 
         $posts = new Posts();
-        for ($page = 1; $page <= 10; $page++) {
+        for ($page = 1; $page <= self::POST_PAGE_LIMIT; $page++) {
             $postsChunk = $this->client->getPosts($token, $page);
             if (is_null($postsChunk)) {
                 $this->logger->error('some error of get posts chuck');
@@ -95,6 +96,7 @@ class Service
 
 
     /**
+     * Running service. It's entrypoint
      * @param string $client_id
      * @param string $email
      * @param string $name
@@ -102,6 +104,11 @@ class Service
     public function run(string $client_id, string $email, string $name): void
     {
         $token = $this->registerToken($client_id, $email, $name);
+
+        if (is_null($token)) {
+            $this->logger->error("empty token");
+            return;
+        }
 
         $posts = $this->fetchAllPosts($token);
 

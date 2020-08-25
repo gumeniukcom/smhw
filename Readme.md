@@ -3,6 +3,14 @@ SMHW
 
 ## How to run
 
+### before run
+
+You need to export `env` vars:
+ - `API_ADDR`
+ - `CLIENT_ID`
+ - `USER_NAME`
+ - `USER_EMAIL`
+
 ### console
 
 ```$bash
@@ -19,4 +27,4 @@ make run
 ```
 
 ----
-by [Stanislav Gumeniuk]('http://gumeniuk.com')
+by [Stanislav Gumeniuk](http://gumeniuk.com)

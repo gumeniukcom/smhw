@@ -28,6 +28,9 @@ abstract class AggregatorAbstract
         $this->logger = $logger;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
